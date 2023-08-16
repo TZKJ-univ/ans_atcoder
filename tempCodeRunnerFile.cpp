@@ -1,3 +1,3 @@
 
-  cin >> S;
-  for (int i = 0; i < N; i++) {
+  //   cout << find(C.rbegin(), C.rend(), c) << endl;
+  // }
