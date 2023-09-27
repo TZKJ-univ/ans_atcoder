@@ -1,9 +1,27 @@
-/**
-  *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
-**/
+#include <cassert>
+#include <cctype>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <bitset>
+#include <deque>
+#include <functional>
+#include <iostream>
+#include <iomanip>
+#include <limits>
+#include <list>
+#include <map>
+#include <numeric>
+#include <queue>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <string>
+#include <tuple>
+#include <utility>
+#include <vector>
 
-#include <bits/stdc++.h>
 using namespace std;
 
 #define OVERLOAD_REP(_1, _2, _3, name, ...) name
@@ -28,11 +46,25 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
-
-
+    int N, D;
+    cin >> N >> D;
+    vs S(N);
+    for (auto& s: S) cin >> s;
+    
+    int cnt = 0;
+    int cnt_max = 0;
+    rep(i, D) {
+      	bool ok = 1;
+        rep(j, N) {
+          if (S[j][i] == 'x') ok = 0;
+        }
+        if (ok) cnt++;
+        else {
+            cnt_max = max(cnt_max, cnt);
+            cnt = 0;
+        }
+    }
+    cout << max(cnt, cnt_max) << endl;
+    
     return 0;
 }

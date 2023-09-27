@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 22.09.2023 11:07:46
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,28 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int N;
+    cin >> N;
 
+    vi F(N), S(N);
+    rep(i, N) {
+        cin >> F[i] >> S[i];
+    }
+
+    int max_index = max_element(all(S)) - S.begin();
+
+    int max_v = -1;
+    rep(i, N) {
+        if (i == max_index) continue;
+        int result;
+        if (F[i] == F[max_index]) {
+            result = S[max_index] + S[i] / 2;
+        } else {
+            result = S[max_index] + S[i];
+        }
+        max_v = max(max_v, result);
+    }
+    cout << max_v << endl;
 
     return 0;
 }

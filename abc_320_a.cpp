@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 16.09.2023 20:57:33
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,12 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int a, b;
+    cin >> a >> b;
 
+    ull re = pow(a, b) + pow(b, a);
+
+    cout << re << endl;
 
     return 0;
 }

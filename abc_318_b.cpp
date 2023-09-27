@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 02.09.2023 20:53:08
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,37 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int N;
+    cin >> N;
+    vvi S(N, vi(4));
 
+    for (auto& r: S) {
+        for (auto& c: r) {
+            cin >> c;
+        }
+    }
+
+    int x_min = S[0][0], x_max = S[0][1], y_min = S[0][2], y_max = S[0][3];
+    rep(i, 1, N) {
+        x_min = min(S[i][0], x_min);
+        x_max = max(S[i][1], x_max);
+        y_min = min(S[i][2], y_min);
+        y_max = max(S[i][3], y_max);
+    }
+
+    int count = 0;
+    rep(i, x_min, x_max) {
+        rep(j, y_min, y_max) {
+            rep(k, 0, N) {
+                if (i >= S[k][0] && i < S[k][1] && j >= S[k][2] && j < S[k][3]) {
+                    count++;
+                    break;
+                }
+            }
+        }
+    }
+
+    cout << count << endl;
 
     return 0;
 }

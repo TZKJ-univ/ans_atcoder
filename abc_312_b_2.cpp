@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 22.08.2023 00:10:52
+*    created: 09.09.2023 16:11:15
 **/
 
 #include <bits/stdc++.h>
@@ -26,40 +26,41 @@ using pii = pair<int, int>;
 #define yesno(bool) if(bool){cout<<"yes"<<endl;}else{cout<<"no"<<endl;}
 #define YesNo(bool) if(bool){cout<<"Yes"<<endl;}else{cout<<"No"<<endl;}
 
-int main() {
+int main()
+{
     int N, M;
     cin >> N >> M;
-    vi P(N), C(N);
-    vvi F(N);
-    for (int i = 0; i < N; i++) {
-        cin >> P[i] >> C[i];
-        vi tmp(C[i]);
-        for (auto& ele : tmp) cin >> ele;
-        F[i] = tmp;
-    }
+    vs S(N);
+    for (auto& s: S) cin >> s;
 
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            bool cond1 = false, cond2 = false, cond3 = false;
-            if (P[i] >= P[j]) cond1 = true;
+    rep(i, N-9+1) {
+        rep(j, M-9+1) {
+            bool ok = 1;
+            rep(k, 3) {
+                rep(m, 3) {
+                    if (S[i+k][j+m] != '#' or S[i+k+6][j+m+6] != '#') ok = 0;
+                }
+            }
+            if (S[i][j+3] != '.') ok = 0;
+            if (S[i+1][j+3] != '.') ok = 0;
+            if (S[i+2][j+3] != '.') ok = 0;
+            if (S[i+3][j] != '.') ok = 0;
+            if (S[i+3][j+1] != '.') ok = 0;
+            if (S[i+3][j+2] != '.') ok = 0;
+            if (S[i+3][j+3] != '.') ok = 0;
 
-            vi func_i = F[i], func_j = F[j];
-            sort(all(func_i));
-            sort(all(func_j));
-            if (includes(all(func_j), all(func_i))) cond2 = true;
-            if (P[i] > P[j]) cond3 = true;
-            for (auto& fj : F[j]) {
-                if (find(all(F[i]), fj) == F[i].end()) cond3 = true;
-            }
-            if (cond1 and cond2 and cond3) {
-                cout << "Yes" << endl;
-                return 0;
-            }
+            if (S[i+5][j+5] != '.') ok = 0;
+            if (S[i+5][j+6] != '.') ok = 0;
+            if (S[i+5][j+7] != '.') ok = 0;
+            if (S[i+5][j+8] != '.') ok = 0;
+            if (S[i+6][j+5] != '.') ok = 0;
+            if (S[i+7][j+5] != '.') ok = 0;
+            if (S[i+8][j+5] != '.') ok = 0;
+
+            if (ok) cout << i+1 << ' ' << j+1 << endl;
+
         }
     }
-
-    cout << "No" << endl;
-
 
     return 0;
 }

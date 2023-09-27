@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 20.09.2023 09:53:31
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,41 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int N;
+    cin >> N;
+    vi C(N);
+    vvi A(N);
+    rep(i, N) {
+        cin >> C[i];
+        vi tmp(C[i]);
+        rep(j, C[i]) {
+            cin >> tmp[j];
+        }
+        A[i] = tmp;
+    }
+    int X;
+    cin >> X;
 
+    vi hit_person;
+    int n_bet = 100;
+    rep(i, N) {
+        if (find(all(A[i]), X) != A[i].end()) {
+            if (A[i].size() == n_bet) {
+                hit_person.push_back(i);
+            } else if (A[i].size() < n_bet) {
+                n_bet = A[i].size();
+                hit_person.clear();
+                hit_person.push_back(i);
+            }
+        }
+    }
+    sort(all(hit_person));
+
+    cout << hit_person.size() << endl;
+    for(auto& p: hit_person) {
+        cout << p + 1 << ' ';
+    }
+    cout << endl;
 
     return 0;
 }

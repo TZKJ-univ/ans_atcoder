@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 22.09.2023 20:00:05
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,17 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int N, D, P;
+    cin >> N >> D >> P;
+    vi F(N);
+    for(auto& f: F) cin >> f;
 
+    bool have_ticket = 0;
 
+    double price = P / D;
+    ll cost = 0;
+    int ticket_num = 0;
+    
+    cout << cost << endl;
     return 0;
 }

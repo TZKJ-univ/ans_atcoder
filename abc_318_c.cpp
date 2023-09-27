@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 02.09.2023 20:53:14
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,29 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int N, D;
+    ull P;
+    cin >> N >> D >> P;
+    vector<ull> F(N);
+    for (auto& f: F) cin >> f;
+    vector<ull> F_sort = F;
 
+    sort(rall(F_sort));
+
+    ull price = 0;
+    ull sum = 0;
+    rep(i, N) {
+        sum += F_sort[i];
+        if (i % D == D - 1) {
+            price += min(sum, P);
+            sum = 0;
+        }
+    }
+    if (N % D != 0) {
+        price += min(sum, P);
+    }
+
+    cout << price << endl;
 
     return 0;
 }

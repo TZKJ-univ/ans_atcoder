@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 16.09.2023 20:57:44
 **/
 
 #include <bits/stdc++.h>
@@ -26,13 +26,35 @@ using pii = pair<int, int>;
 #define yesno(bool) if(bool){cout<<"yes"<<endl;}else{cout<<"no"<<endl;}
 #define YesNo(bool) if(bool){cout<<"Yes"<<endl;}else{cout<<"No"<<endl;}
 
+bool is_kaibun(string str) {
+    int low = 0;
+    int high = str.length() - 1;
+
+    while (low < high) {
+        if (str[low] != str[high]) {
+            return false;
+        }
+        low++;
+        high--;
+    }
+    return true;
+}
+
 int main()
 {
     string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    cin >> S;
 
+    int max_v = 1;
+    rep(i, S.size()) {
+        rep(j, i, S.size()) {
+            if (j - i + 1 == 1) continue;
+            if (is_kaibun(S.substr(i, j - i + 1))) {
+                max_v = max(max_v, int(j - i + 1));
+            }
+        }
+    }
+    cout << max_v << endl;
 
     return 0;
 }

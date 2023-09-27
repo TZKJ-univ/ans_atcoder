@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 09.09.2023 20:57:37
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,23 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int N;
+    cin >> N;
+    vi ord{0,1,2,3,4,5,6,7,8};
+    vii tab_ord(3, vi(3));
 
+    do {
+        int c = 0;
+        for (auto& v: ord) {
+            int i = v / 3;
+            int j = v % 3;
+            tab_ord[i][j] = c;
+            c++;
+        }
+
+        
+
+    } while (permutation(all(ord)));
 
     return 0;
 }

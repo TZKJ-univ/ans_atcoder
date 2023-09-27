@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 08.09.2023 13:45:56
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,31 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int N;
+    cin >> N;
+    vi A(N+1);
+    rep(i, 1, N+1) cin >> A[i];
 
+    vi seen(N+1, 0);
+    int v = 1;
+    vi flow;
+    while (seen[v] == 0) {
+        seen[v] = 1;
+        flow.push_back(v);
+        v = A[v];
+    }
+
+    bool flag = 0;
+    vi ans;
+    for (auto& f: flow) {
+        if (f == v) flag = 1;
+        if (flag) ans.push_back(f);
+    }
+    cout << ans.size() << endl;
+    for (auto& i: ans) {
+        cout << i << ' ';
+    }
+    cout << endl;
 
     return 0;
 }

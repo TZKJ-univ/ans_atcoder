@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 19.09.2023 19:42:37
 **/
 
 #include <bits/stdc++.h>
@@ -26,13 +26,46 @@ using pii = pair<int, int>;
 #define yesno(bool) if(bool){cout<<"yes"<<endl;}else{cout<<"no"<<endl;}
 #define YesNo(bool) if(bool){cout<<"Yes"<<endl;}else{cout<<"No"<<endl;}
 
+int N, M;
+vi A(N), B(N);
+
+bool is_ok(int mid) {
+    int seller = upper_bound(all(A), mid) - A.begin();
+    int buyer = M - (lower_bound(all(B), mid) - B.begin());
+    return seller >= buyer;
+
+}
+
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    cin >> N >> M;
+    A.resize(N);
+    B.resize(M);
 
+    rep(i, N) {
+        cin >> A[i];
+    }
+
+    rep(i, M) {
+        cin >> B[i];
+    }
+
+    sort(all(A));
+    sort(all(B));
+
+    int ok = 1000000001;
+    int ng = 0;
+
+    while (abs(ok - ng) > 1) {
+        int mid = (ok + ng) / 2;
+        if (is_ok(mid)) {
+            ok = mid;
+        } else {
+            ng = mid;
+        }
+    }
+
+    cout << ok << endl;
 
     return 0;
 }

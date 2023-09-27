@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 23.09.2023 20:59:56
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,20 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int N, X;
+    cin >> N >> X;
+    vi A(N-1);
+    rep(i, N-1) cin >> A[i];
 
+    sort(all(A));
+
+    if (accumulate(A.begin(), A.end()-1, 0) >= X) {
+        cout << 0 << endl;
+    } else if(accumulate(A.begin()+1, A.end(), 0) < X) {
+        cout << -1 << endl;
+    } else {
+        cout << X - accumulate(A.begin()+1, A.end()-1, 0) << endl;
+    }
 
     return 0;
 }

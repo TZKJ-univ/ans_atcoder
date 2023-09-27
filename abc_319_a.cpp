@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 09.09.2023 20:57:34
 **/
 
 #include <bits/stdc++.h>
@@ -29,10 +29,18 @@ using pii = pair<int, int>;
 int main()
 {
     string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    cin >> S;
 
+    if (S == "tourist") cout << 3858 << endl;
+    if (S == "ksun48") cout << 3679 << endl;
+    if (S == "Benq") cout << 3658 << endl;
+    if (S == "Um_nik") cout << 3648 << endl;
+    if (S == "apiad") cout << 3638 << endl;
+    if (S == "Stonefeang") cout << 3630 << endl;
+    if (S == "ecnerwala") cout << 3613 << endl;
+    if (S == "mnbvmar") cout << 3555 << endl;
+    if (S == "newbiedmy") cout << 3516 << endl;
+    if (S == "semiexp") cout << 3481 << endl;
 
     return 0;
 }

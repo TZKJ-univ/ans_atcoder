@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 23.09.2023 20:57:01
 **/
 
 #include <bits/stdc++.h>
@@ -28,10 +28,16 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    string N;
+    cin >> N;
+
+    bool ok = 1;
+
+    rep(i, N.size()-1) {
+        if (N[i] <= N[i+1]) ok = 0;
+    }
+
+    YesNo(ok);
 
 
     return 0;

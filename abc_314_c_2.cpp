@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 20.09.2023 10:40:15
 **/
 
 #include <bits/stdc++.h>
@@ -28,10 +28,36 @@ using pii = pair<int, int>;
 
 int main()
 {
+    int N, M;
+    cin >> N >> M;
     string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    cin >> S;
+    vi C(N);
+    for (auto& c: C) {
+        cin >> c;
+        c--;
+    }
+
+
+    vi next(M), first_index(M), flag(M);
+
+    rep(i, N) {
+        if (flag[C[i]] == 0) {
+            flag[C[i]] = 1;
+            first_index[C[i]] = i;
+            next[C[i]] = S[i];
+        } else if(flag[C[i]] == 1) {
+            char tmp = S[i];
+            S[i] = next[C[i]];
+            next[C[i]] = tmp;
+        }
+    }
+
+    rep(i, M) {
+        S[first_index[i]] = next[i];
+    }
+
+    cout << S << endl;
 
 
     return 0;

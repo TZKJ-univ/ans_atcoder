@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 19.09.2023 21:59:49
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,28 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int N;
+    cin >> N;
+    vll A(N);
+    for(auto& a: A) cin >> a;
 
+    sort(all(A));
+
+    ll sum = 0;
+    for (auto& a: A) sum += a;
+    ull avg = sum / N;
+    int remainder = sum % N;
+    vll B(N - remainder, avg);
+    vll B2(remainder, avg + 1);
+    B.insert(B.end(), all(B2));
+
+    ll diff = 0;
+    rep(i, N) {
+
+        diff += abs(A[i] - B[i]);
+    }
+
+    cout << diff / 2 << endl;
 
     return 0;
 }

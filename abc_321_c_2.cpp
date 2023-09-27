@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 23.09.2023 23:50:02
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,27 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int K;
+    cin >> K;
 
+    vi number(10);
+    iota(all(number), 0);
+
+    vll num_list;
+    for (int bit = 2; bit < (1<<10); ++bit) {
+        string tmp_list;
+        for (int i = 0; i < 10; i++) {
+            if (bit & (1<<i)) {
+                tmp_list.push_back(number[i] + '0');
+            }
+        }
+        sort(rall(tmp_list));
+        num_list.push_back(stoll(tmp_list));
+    }
+
+    sort(all(num_list));
+
+    cout << num_list[K-1] << endl;
 
     return 0;
 }

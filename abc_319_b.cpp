@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 09.09.2023 20:57:31
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,18 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int N;
+    cin >> N;
 
-
+    rep(i, N+1) {
+        int mi = 10000;
+        rep(j, 1, 10) {
+            if (N % j != 0) continue;
+            if (i % (N / j) == 0) mi = min(mi, j);
+        }
+        if (mi == 10000) cout << '-';
+        else cout << mi;
+    }
+    cout << endl;
     return 0;
 }

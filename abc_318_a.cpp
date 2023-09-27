@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 02.09.2023 20:53:05
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,15 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
-
+    int N, M, P;
+    cin >> N >> M >> P;
+    int count = 0;
+    int i = M;
+    while (i <= N) {
+        count++;
+        i += P;
+    }
+    cout << count;
 
     return 0;
 }

@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 22.09.2023 10:56:07
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,25 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int M;
+    cin >> M;
+    vi D(M);
+    for (auto& d: D) cin >> d;
 
+    int sum = accumulate(all(D), 1) / 2;
+
+    int mon = 1;
+    int day;
+    for(auto& d: D) {
+        if (sum <= d) {
+            day = sum;
+            break;
+        }
+        mon++;
+        sum -= d;
+    }
+
+    cout << mon << ' ' << day << endl;;
 
     return 0;
 }

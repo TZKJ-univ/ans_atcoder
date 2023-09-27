@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 09.09.2023 16:45:26
 **/
 
 #include <bits/stdc++.h>
@@ -28,10 +28,16 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int N, M;
+    cin >> N > M;
+    vi A(N), B(M);
+    for (auto& a: A) cin >> a;
+    for (auto& b: B) cin >> b;
+
+    vi A_sort = A;
+    vi B_sort = B;
+    sort(rall(A_sort));
+    sort(rall(B_sort));
 
 
     return 0;

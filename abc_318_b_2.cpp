@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 24.09.2023 00:45:40
+*    created: 22.09.2023 19:33:10
 **/
 
 #include <bits/stdc++.h>
@@ -28,11 +28,31 @@ using pii = pair<int, int>;
 
 int main()
 {
-    string S;
-    cout << typeid(S).name() << endl;
-    S.push_back('1');
-        cout << typeid(S).name() << endl;
+    int N;
+    cin >> N;
+    vi A(N), B(N), C(N), D(N);
+    rep(i, N) {
+        cin >> A[i] >> B[i] >> C[i] >> D[i];
+    }
 
+    vvi covered(100, vi(100));
+
+    rep(i, N) {
+        rep(x, A[i], B[i]) {
+            rep(y, C[i], D[i]) {
+                covered[x][y] = 1;
+            }
+        }
+    }
+
+    int cnt = 0;
+    rep(i, 100) {
+        rep(j, 100) {
+            if (covered[i][j]) cnt++;
+        }
+    }
+
+    cout << cnt << endl;
 
     return 0;
 }
