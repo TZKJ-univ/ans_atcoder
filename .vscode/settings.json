@@ -11,6 +11,18 @@
     "string_view": "cpp",
     "unordered_map": "cpp",
     "vector": "cpp",
-    "__bit_reference": "cpp"
+    "__bit_reference": "cpp",
+    "iosfwd": "cpp",
+    "complex": "cpp",
+    "limits": "cpp",
+    "chrono": "cpp",
+    "algorithm": "cpp",
+    "map": "cpp",
+    "set": "cpp",
+    "deque": "cpp",
+    "list": "cpp",
+    "queue": "cpp",
+    "numeric": "cpp",
+    "__tree": "cpp"
 }
 }

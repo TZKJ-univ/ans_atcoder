@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 02.10.2023 22:41:00
+*    created: 04.10.2023 10:07:22
 **/
 
 #include <bits/stdc++.h>
@@ -26,29 +26,39 @@ using pii = pair<int, int>;
 #define yesno(bool) if(bool){cout<<"yes"<<endl;}else{cout<<"no"<<endl;}
 #define YesNo(bool) if(bool){cout<<"Yes"<<endl;}else{cout<<"No"<<endl;}
 
+int N, M;
+vi A, B;
+
+bool is_ok(int mid) {
+    int seller, buyer;
+    seller = upper_bound(all(A), mid) - A.begin();
+    buyer = M - (lower_bound(all(B), mid) - B.begin());
+    return seller >= buyer;
+}
+
 int main()
 {
-    int K;
-    cin >> K;
+    cin >> N >> M;
+    A.resize(N);
+    B.resize(M);
+    for (auto& x: A) cin >> x;
+    for (auto& x: B) cin >> x;
+    sort(all(A));
+    sort(all(B));
 
-    vll num(10);
-    iota(all(num), 0);
+    int ok = 1000000001;
+    int ng = 0;
 
-    vll num_list;
-    for (int bit = 2; bit < (1<<10); ++bit) {
-        ll tmp = 0;
-        ll idx = 0;
-        for (int i = 0; i < 10; ++i) {
-            if (bit & (1<<i)) {
-                tmp += num[i] * pow(10, idx);
-                idx++;
-            }
+    while (ok - ng > 1) {
+        int mid = (ok + ng) / 2;
+        if (is_ok(mid)) {
+            ok = mid;
+        } else {
+            ng = mid;
         }
-        num_list.push_back(tmp);
     }
 
-    sort(all(num_list));
-    cout << num_list[K-1] << endl;
+    cout << ok << endl;
 
     return 0;
 }

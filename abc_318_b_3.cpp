@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 02.10.2023 22:41:00
+*    created: 06.10.2023 21:55:50
 **/
 
 #include <bits/stdc++.h>
@@ -28,27 +28,8 @@ using pii = pair<int, int>;
 
 int main()
 {
-    int K;
-    cin >> K;
-
-    vll num(10);
-    iota(all(num), 0);
-
-    vll num_list;
-    for (int bit = 2; bit < (1<<10); ++bit) {
-        ll tmp = 0;
-        ll idx = 0;
-        for (int i = 0; i < 10; ++i) {
-            if (bit & (1<<i)) {
-                tmp += num[i] * pow(10, idx);
-                idx++;
-            }
-        }
-        num_list.push_back(tmp);
-    }
-
-    sort(all(num_list));
-    cout << num_list[K-1] << endl;
+    int N;
+    cin >> N;
 
     return 0;
 }
