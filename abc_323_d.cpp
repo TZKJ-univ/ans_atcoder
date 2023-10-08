@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 06.10.2023 21:55:50
+*    created: 07.10.2023 20:56:36
 **/
 
 #include <bits/stdc++.h>
@@ -28,29 +28,32 @@ using pii = pair<int, int>;
 
 int main()
 {
-    int N;
-    cin >> N;
-    vvi sheet(N, vi(4));
+    int n;
+    cin >> n;
 
-    for (auto& x:sheet) cin >> x[0] >> x[1] >> x[2] >> x[3];
-    vvi seen(101, vi(101, 0));
-
-    rep(i, N) {
-        rep(j, sheet[i][0], sheet[i][1]) {
-            rep(k, sheet[i][2], sheet[i][3]) {
-                seen[j][k] = 1;
-            }
+    int x;
+    ll y;
+    map<int, ll> mp;
+    rep(i, n) {
+        cin >> x >> y;
+        while ((x & 1) == 0) {
+            x >>= 1;
+            y <<= 1;
         }
+        mp[x] += y;
     }
 
-    int count = 0;
-    rep(i, 101) {
-        rep(j, 101) {
-            if (seen[i][j]) count++;
+    // for(auto& [a, b] : mp) {
+    //     cout << a << ' ' << b << endl;
+    // }
+
+    int cnt = 0;
+    for (auto& [a, b] : mp) {
+        while (b > 0) {
+            if ((b & 1) == 1) cnt++;
+            b >>= 1;
         }
     }
-
-    cout << count << endl;
-
+    cout << cnt << endl;
     return 0;
 }

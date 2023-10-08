@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 06.10.2023 21:55:50
+*    created: 06.10.2023 22:15:27
 **/
 
 #include <bits/stdc++.h>
@@ -28,29 +28,29 @@ using pii = pair<int, int>;
 
 int main()
 {
-    int N;
-    cin >> N;
-    vvi sheet(N, vi(4));
-
-    for (auto& x:sheet) cin >> x[0] >> x[1] >> x[2] >> x[3];
-    vvi seen(101, vi(101, 0));
-
-    rep(i, N) {
-        rep(j, sheet[i][0], sheet[i][1]) {
-            rep(k, sheet[i][2], sheet[i][3]) {
-                seen[j][k] = 1;
-            }
-        }
+    int N, D;
+    double P;
+    cin >> N >> D >> P;
+    vll F(N);
+    for (auto& x:F) cin >> x;
+    sort(all(F));
+    vll F_cum(N);
+    F_cum[0] = F[0];
+    rep(i, 1, N) {
+        F_cum[i] = F[i] + F_cum[i-1];
     }
+    ll i = 0;
+    ll mv = ceil(double(N) / D) * P;
+    // cout << mv << endl;
 
-    int count = 0;
-    rep(i, 101) {
-        rep(j, 101) {
-            if (seen[i][j]) count++;
-        }
-    }
+    do {
+        ll prc = F_cum[N-i-1] + i / D * P;
+        i += D;
+        // cout  << prc << " ";
+        mv = min(mv, prc);
+    } while (i < N);
 
-    cout << count << endl;
+    cout << mv << endl;
 
     return 0;
 }

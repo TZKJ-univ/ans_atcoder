@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 06.10.2023 21:55:50
+*    created: 07.10.2023 20:56:50
 **/
 
 #include <bits/stdc++.h>
@@ -30,27 +30,28 @@ int main()
 {
     int N;
     cin >> N;
-    vvi sheet(N, vi(4));
-
-    for (auto& x:sheet) cin >> x[0] >> x[1] >> x[2] >> x[3];
-    vvi seen(101, vi(101, 0));
-
+    vector<string> S(N);
     rep(i, N) {
-        rep(j, sheet[i][0], sheet[i][1]) {
-            rep(k, sheet[i][2], sheet[i][3]) {
-                seen[j][k] = 1;
-            }
-        }
+        cin >> S[i];
     }
 
-    int count = 0;
-    rep(i, 101) {
-        rep(j, 101) {
-            if (seen[i][j]) count++;
+    vector<pair<int,int>> winls(N);
+    rep(i, N) {
+        winls[i].second = -i;
+    }
+    rep(i, N) {
+        int win = 0;
+        rep(j, N) {
+            if (S[i][j] == 'o') win++;
         }
+        winls[i].first = win;
     }
 
-    cout << count << endl;
+    sort(rall(winls));
+    rep(i, N) {
+        cout << -winls[i].second + 1 << ' ';
+    }
+    cout << endl;
 
     return 0;
 }

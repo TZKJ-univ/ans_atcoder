@@ -28,8 +28,14 @@ using pii = pair<int, int>;
 
 int main()
 {
-    int N;
-    cin >> N;
+    int N = 10;
+
+    // rep(i, 10) {
+    //     cout << N << endl;
+    //     N <<= 1;
+    // }
+
+    cout<<(5>>1);
 
     return 0;
 }

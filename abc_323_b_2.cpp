@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 06.10.2023 21:55:50
+*    created: 08.10.2023 19:31:01
 **/
 
 #include <bits/stdc++.h>
@@ -30,27 +30,23 @@ int main()
 {
     int N;
     cin >> N;
-    vvi sheet(N, vi(4));
-
-    for (auto& x:sheet) cin >> x[0] >> x[1] >> x[2] >> x[3];
-    vvi seen(101, vi(101, 0));
-
+    vector<pair<int, int>> S(N);
     rep(i, N) {
-        rep(j, sheet[i][0], sheet[i][1]) {
-            rep(k, sheet[i][2], sheet[i][3]) {
-                seen[j][k] = 1;
-            }
-        }
+        string tmp;
+        cin >> tmp;
+        S[i] = {count(all(tmp), 'o'), i};
     }
 
-    int count = 0;
-    rep(i, 101) {
-        rep(j, 101) {
-            if (seen[i][j]) count++;
-        }
-    }
+    auto comp = [](pair<int, int> a, pair<int, int> b) {
+        if (a.first != b.first) return a.first > b.first;
+        return a.second < b.second;
+    };
 
-    cout << count << endl;
+    sort(all(S), comp);
+    rep(i, N) {
+        cout << S[i].second + 1 << ' ';
+    }
+    cout << endl;
 
     return 0;
 }
