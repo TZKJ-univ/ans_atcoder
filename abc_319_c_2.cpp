@@ -1,9 +1,10 @@
 /**
   *  programmer:  Zama
-*    created: 09.10.2023 00:16:22
+*    created: 10.10.2023 20:12:39
 **/
 
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
 
 #define OVERLOAD_REP(_1, _2, _3, name, ...) name
@@ -28,9 +29,30 @@ using pii = pair<int, int>;
 
 int main()
 {
-    int N;
-    cin >> N;
+    vector<tuple<int, int, int>> row{{0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{0,4,8},{2,4,6}};
+    vi ceil(9);
 
-    if ()
+    rep(i, 9) {
+        cin >> ceil[i];
+    }
+    vi ord(9);
+    iota(all(ord), 0);
+
+    int all = 0;
+    int ok = 0;
+    do {
+        all++;
+        bool flg = 0;
+        for (auto& [a,b,c] : row) {
+            if (ceil[a] == ceil[b] and ord[a] < ord[c] and ord[b] < ord[c]) flg = 1;
+            if (ceil[c] == ceil[b] and ord[c] < ord[a] and ord[b] < ord[a]) flg = 1;
+            if (ceil[a] == ceil[c] and ord[a] < ord[b] and ord[c] < ord[b]) flg = 1;
+        }
+        if (!flg) ok++;
+    } while (next_permutation(all(ord)));
+
+    cout << setprecision(10);
+    cout << (double(ok) / all) << endl;
+
     return 0;
 }

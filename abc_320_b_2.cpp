@@ -1,9 +1,10 @@
 /**
   *  programmer:  Zama
-*    created: 09.10.2023 00:16:22
+*    created: 10.10.2023 21:28:03
 **/
 
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
 
 #define OVERLOAD_REP(_1, _2, _3, name, ...) name
@@ -26,11 +27,29 @@ using pii = pair<int, int>;
 #define yesno(bool) if(bool){cout<<"yes"<<endl;}else{cout<<"no"<<endl;}
 #define YesNo(bool) if(bool){cout<<"Yes"<<endl;}else{cout<<"No"<<endl;}
 
+bool is_kaibun(string s) {
+    int idx1 = 0;
+    int idx2 = s.size()-1;
+    while(idx1<idx2) {
+        if (s[idx1] != s[idx2]) return 0;
+        idx1++;
+        idx2--;
+    }
+    return 1;
+}
+
 int main()
 {
-    int N;
-    cin >> N;
-
-    if ()
+    string s;
+    cin >> s;
+    int ans = 0;
+    rep(i, s.size()) {
+        rep(j, s.size()-i+1) {
+            if (is_kaibun(s.substr(i, j))) {
+                ans = max(ans, int(j));
+            }
+        }
+    }
+    cout << ans;
     return 0;
 }

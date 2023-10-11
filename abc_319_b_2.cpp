@@ -1,9 +1,10 @@
 /**
   *  programmer:  Zama
-*    created: 09.10.2023 00:16:22
+*    created: 10.10.2023 19:59:58
 **/
 
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
 
 #define OVERLOAD_REP(_1, _2, _3, name, ...) name
@@ -31,6 +32,20 @@ int main()
     int N;
     cin >> N;
 
-    if ()
+    rep(i, N+1) {
+        int ans = 0;
+        for (int j = 9; j > 0; j--) {
+            if (N % j == 0 and i % (N/j) == 0) {
+                ans = j;
+            }
+        }
+        if (ans) {
+            cout << ans;
+        } else {
+            cout << "-";
+        }
+    }
+    cout << endl;
+
     return 0;
 }

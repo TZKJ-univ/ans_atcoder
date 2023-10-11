@@ -1,9 +1,10 @@
 /**
   *  programmer:  Zama
-*    created: 09.10.2023 00:16:22
+*    created: 10.10.2023 21:19:01
 **/
 
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
 
 #define OVERLOAD_REP(_1, _2, _3, name, ...) name
@@ -28,9 +29,9 @@ using pii = pair<int, int>;
 
 int main()
 {
-    int N;
-    cin >> N;
-
-    if ()
+    ll a, b;
+    cin >> a >> b;
+    cout << setprecision(20);
+    cout << pow(a,b)+pow(b,a)<<endl;
     return 0;
 }

@@ -1,9 +1,10 @@
 /**
   *  programmer:  Zama
-*    created: 04.10.2023 14:40:46
+*    created: 09.10.2023 19:39:25
 **/
 
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
 
 #define OVERLOAD_REP(_1, _2, _3, name, ...) name
@@ -28,14 +29,7 @@ using pii = pair<int, int>;
 
 int main()
 {
-    int N = 10;
-
-    // rep(i, 10) {
-    //     cout << N << endl;
-    //     N <<= 1;
-    // }
-
-    cout<<(5>>1);
+    cout << "hello";
 
     return 0;
 }
