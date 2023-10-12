@@ -29,19 +29,20 @@ using pii = pair<int, int>;
 
 int main()
 {
-    int N;
-    cin >> N;
+    int N, X;
+    cin >> N >> X;
 
-    vi p(N);
-    for (auto& x : p) cin >> x;
-    
-    int ans = -1;
-    
-    rep(i, 1, N) {
-      ans = max(ans, p[i] - p[0]);
+    vi A(N-1);
+    for (auto& x : A) cin >> x;
+
+    sort(all(A));
+    if (accumulate(A.begin()+1, A.end(), 0) < X) {
+        cout << -1 << endl;
+    } else if (accumulate(A.begin(), A.end()-1, 0) >= X) {
+        cout << 0 << endl;
+    } else {
+        cout << X - accumulate(A.begin()+1, A.end()-1, 0) << endl;
     }
-
-    cout << ans+1 << endl;
 
     return 0;
 }

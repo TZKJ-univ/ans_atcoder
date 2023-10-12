@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 12.10.2023 16:19:10
+*    created: 12.10.2023 20:47:04
 **/
 
 #include <bits/stdc++.h>
@@ -29,19 +29,26 @@ using pii = pair<int, int>;
 
 int main()
 {
-    int N;
-    cin >> N;
+    int K;
+    cin >> K;
 
-    vi p(N);
-    for (auto& x : p) cin >> x;
-    
-    int ans = -1;
-    
-    rep(i, 1, N) {
-      ans = max(ans, p[i] - p[0]);
+    vll num(10);
+    vll li;
+    iota(all(num), 0);
+    for (ll bit = 2; bit<(1<<10); bit++) {
+        ll tmp = 0;
+        int j = 0;
+        for (ll i = 0; i < 10; i++) {
+            if (bit&(1<<i)) {
+                tmp += num[i] * pow(10, j);
+                j++;
+            }
+        }
+        li.push_back(tmp);
     }
+    sort(all(li));
 
-    cout << ans+1 << endl;
+    cout << li[K-1] << endl;
 
     return 0;
 }
