@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 11.10.2023 22:55:23
+*    created: 13.10.2023 17:24:24
 **/
 
 #include <bits/stdc++.h>
@@ -27,37 +27,56 @@ using pii = pair<int, int>;
 #define yesno(bool) if(bool){cout<<"yes"<<endl;}else{cout<<"no"<<endl;}
 #define YesNo(bool) if(bool){cout<<"Yes"<<endl;}else{cout<<"No"<<endl;}
 
+const int dx[4] = {1, 0, -1, 0};
+const int dy[4] = {0, 1, 0, -1};
+
+vvi seen(501, vi(501, 0));
+vs field;
+int H, W;
+
+void dfs(int h, int w) {
+    seen[h][w] = 1;
+    rep(i, 4) {
+        int nh = h + dx[i];
+        int nw = w + dy[i];
+
+        if (nh < 0 or nh >= H or nw < 0 or nw >= W) continue;
+        if (field[nh][nw] == '#') continue;
+        if (seen[nh][nw] == 1) continue;
+
+        dfs(nh, nw);
+    }
+}
+
 int main()
 {
-    int M;
-    cin >> M;
+    cin >> H >> W;
 
-    string s1, s2, s3;
-    cin >> s1 >> s2 >> s3;
+    field.resize(H);
+    rep(i, H) {
+        cin >> field[i];
+    }
 
-    s1 = s1 + s1 + s1;
-    s2 = s2 + s2 + s2;
-    s3 = s3 + s3 + s3;
-
-    int ans = 100000;
-    bool flg = 0;
-    rep(i, 3*M) {
-        rep(j, 3*M) {
-            rep(k, 3*M) {
-                if (i == j or j == k or k == i) continue;
-                if (s1[i] == s2[j] and s2[j] == s3[k]) {
-                    ans = min(max(max(i, j), max(j, k)), ans);
-                    flg = 1;
-                    cout << i << " " << j << " " << k << endl;
-                }
+    int sh, sw, gh, gw;
+    rep(i, H) {
+        rep (j, W) {
+            if (field[i][j] == 's') {
+                sh = i;
+                sw = j;
+            }
+            if (field[i][j] == 'g') {
+                gh = i;
+                gw = j;
             }
         }
     }
 
-    if (flg) {
-        cout << ans << endl;
+    dfs(sh, sw);
+
+    if (seen[gh][gw] == 1) {
+        cout << "Yes" << endl;
     } else {
-        cout << -1 << endl;
+        cout << "No" << endl;
     }
 
     return 0;

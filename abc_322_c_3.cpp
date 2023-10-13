@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 11.10.2023 22:55:23
+*    created: 13.10.2023 14:39:18
 **/
 
 #include <bits/stdc++.h>
@@ -29,35 +29,29 @@ using pii = pair<int, int>;
 
 int main()
 {
-    int M;
-    cin >> M;
+    int n,m;
+    cin >> n>>m;
+    vi a(m);
+    for(auto& i:a) cin >> i;
+    vi f(n);
+    for(auto& i:a) {
+        f[i-1] =1;
+    }
 
-    string s1, s2, s3;
-    cin >> s1 >> s2 >> s3;
-
-    s1 = s1 + s1 + s1;
-    s2 = s2 + s2 + s2;
-    s3 = s3 + s3 + s3;
-
-    int ans = 100000;
-    bool flg = 0;
-    rep(i, 3*M) {
-        rep(j, 3*M) {
-            rep(k, 3*M) {
-                if (i == j or j == k or k == i) continue;
-                if (s1[i] == s2[j] and s2[j] == s3[k]) {
-                    ans = min(max(max(i, j), max(j, k)), ans);
-                    flg = 1;
-                    cout << i << " " << j << " " << k << endl;
-                }
-            }
+    vi ans(n);
+    int num = 0;
+    rep(i, n) {
+        if (f[n-i-1] == 1){
+            num = 0;
+            ans[n-i-1] = 0;
+        } else {
+            num++;
+            ans[n-i-1] =num;
         }
     }
 
-    if (flg) {
-        cout << ans << endl;
-    } else {
-        cout << -1 << endl;
+    for(auto& i:ans) {
+        cout << i << endl;
     }
 
     return 0;

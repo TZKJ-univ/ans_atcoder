@@ -29,19 +29,7 @@ using pii = pair<int, int>;
 
 int main()
 {
-    int N;
-    cin >> N;
-
-    vi p(N);
-    for (auto& x : p) cin >> x;
-    
-    int ans = -1;
-    
-    rep(i, 1, N) {
-      ans = max(ans, p[i] - p[0]);
-    }
-
-    cout << ans+1 << endl;
+    cout << "hello";
 
     return 0;
 }

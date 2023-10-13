@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 11.10.2023 22:55:23
+*    created: 13.10.2023 16:05:06
 **/
 
 #include <bits/stdc++.h>
@@ -29,36 +29,40 @@ using pii = pair<int, int>;
 
 int main()
 {
-    int M;
-    cin >> M;
+    int N, M;
+    cin >> N >> M;
+    vi A(M), B(M);
+    vvi G(N);
 
-    string s1, s2, s3;
-    cin >> s1 >> s2 >> s3;
+    rep(i, M) {
+        int a, b;
+        cin >> a >> b;
+        a--; b--;
+        G[a].push_back(b);
+        G[b].push_back(a);
+    }
 
-    s1 = s1 + s1 + s1;
-    s2 = s2 + s2 + s2;
-    s3 = s3 + s3 + s3;
-
-    int ans = 100000;
-    bool flg = 0;
-    rep(i, 3*M) {
-        rep(j, 3*M) {
-            rep(k, 3*M) {
-                if (i == j or j == k or k == i) continue;
-                if (s1[i] == s2[j] and s2[j] == s3[k]) {
-                    ans = min(max(max(i, j), max(j, k)), ans);
-                    flg = 1;
-                    cout << i << " " << j << " " << k << endl;
-                }
+    queue<int> que;
+    vi dist(N, -1);
+    vll cnt(N);
+    que.push(0);
+    cnt[0] = 1;
+    while (!que.empty()) {
+        int v = que.front();
+        que.pop();
+        for(auto& nv : G[v]) {
+            if (dist[nv] == -1) {
+                que.push(nv);
+                dist[nv] = dist[v] + 1;
+                cnt[nv] = cnt[v];
+            } else if (dist[nv] == dist[v] + 1) {
+                cnt[nv] += cnt[v];
+                cnt[nv] %= 1000000007;
             }
         }
     }
 
-    if (flg) {
-        cout << ans << endl;
-    } else {
-        cout << -1 << endl;
-    }
+    cout << cnt[N-1] << endl;
 
     return 0;
 }
