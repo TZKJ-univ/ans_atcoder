@@ -1,11 +1,12 @@
 /**
   *  programmer:  Zama
-*    created: 12.10.2023 16:19:10
+*    created: 14.10.2023 20:54:14
 **/
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 
 #define OVERLOAD_REP(_1, _2, _3, name, ...) name
 #define REP1(i, n) for (auto i = std::decay_t<decltype(n)>{}; (i) != (n); ++(i))
@@ -26,12 +27,32 @@ using pii = pair<int, int>;
 #define YESNO(bool) if(bool){cout<<"YES"<<endl;}else{cout<<"NO"<<endl;}
 #define yesno(bool) if(bool){cout<<"yes"<<endl;}else{cout<<"no"<<endl;}
 #define YesNo(bool) if(bool){cout<<"Yes"<<endl;}else{cout<<"No"<<endl;}
+template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
 int main()
 {
-    int x = ;
-    if (x == 1) cout << "1です" << endl;
-    else cout << "1以外です" << endl;
+    ll N;
+    cin >> N;
+    string S;
+    cin >> S;
+    sort(rall(S));
+
+    ll count = 0;
+    for (ll i = 0; i * i < pow(10, N); i++) {
+        // cout << i << endl;
+        ll num = i*i;
+        string num_s = to_string(num);
+        sort(rall(num_s));
+        // cout << num_s << endl;
+        ll lack = N - ll(num_s.size());
+        // cout << lack << endl;
+        rep(i, lack) num_s.push_back('0');
+        // cout << num_s << endl;
+        if (S == num_s) count++;
+    }
+
+    cout << count << endl;
 
     return 0;
 }

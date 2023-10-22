@@ -2,6 +2,10 @@ using System;
 
 public class HelloWorld {
     static public void Main() {
-        Console.WriteLine(3*43);
+        string s = "ABC";
+        CO
+        string s2 = "ABC";
+        Console.WriteLine(s == s2);
     }
+    
 }

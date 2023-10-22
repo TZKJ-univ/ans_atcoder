@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 12.10.2023 16:19:10
+*    created: 13.10.2023 20:18:08
 **/
 
 #include <bits/stdc++.h>
@@ -26,12 +26,26 @@ using pii = pair<int, int>;
 #define YESNO(bool) if(bool){cout<<"YES"<<endl;}else{cout<<"NO"<<endl;}
 #define yesno(bool) if(bool){cout<<"yes"<<endl;}else{cout<<"no"<<endl;}
 #define YesNo(bool) if(bool){cout<<"Yes"<<endl;}else{cout<<"No"<<endl;}
+template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
 int main()
 {
-    int x = ;
-    if (x == 1) cout << "1です" << endl;
-    else cout << "1以外です" << endl;
+    int N;
+    cin >> N;
+    vi h(N);
+    rep(i, N) cin >> h[i];
+
+    int step = 0;
+    vi dp(N);
+
+    dp[0] = 0;
+    dp[1] = abs(h[1]-h[0]);
+    rep(i, 2, N) {
+        dp[i] = min(dp[i-2]+abs(h[i]-h[i-2]), dp[i-1]+abs(h[i]-h[i-1]));
+    }
+
+    cout << dp[N-1] << endl;
 
     return 0;
 }
