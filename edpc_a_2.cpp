@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 22.10.2023 20:34:19
+*    created: 23.10.2023 14:03:13
 **/
 
 #include <bits/stdc++.h>
@@ -30,39 +30,22 @@ using pii = pair<int, int>;
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
-vi A;
-int N, L, K;
-
-// mid以上の大きさに分けたとき，それは要件を満たしているか（K個以上か）
-bool is_ok(int mid) {
-    int cnt = 0;
-    int pre = 0;
-    rep(i, A.size()) {
-        if (A[i] - pre >= mid and L - A[i] >= mid) {
-            cnt++;
-            pre = A[i];
-        }
-    }
-    return cnt >= K;
-}
-
 int main()
 {
-
-    cin >> N >> L >> K;
-    A.resize(N);
-    rep(i, N) cin >> A[i];
-
-    int ok = -1;
-    int ng = 1000000001;
-
-    while (ng - ok > 1) {
-        int mid = (ng + ok) / 2;
-        if (is_ok(mid)) ok = mid;
-        else ng = mid;
+    int N;
+    cin >> N;
+    vi h(N);
+    rep(i, N) cin >> h[i];
+    vi dp(N);
+    dp[0] = 0;
+    dp[1] = abs(h[1] - h[0]);
+    rep(i, 2, N) {
+        dp[i] = min(dp[i-2]+abs(h[i]-h[i-2]), dp[i-1]+abs(h[i]-h[i-1]));
+        
     }
+    cout << dp[N-1] << endl;
 
-    cout << ok << endl;
+
 
     return 0;
 }

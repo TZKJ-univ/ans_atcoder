@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 22.10.2023 20:34:19
+*    created: 23.10.2023 14:47:31
 **/
 
 #include <bits/stdc++.h>
@@ -30,39 +30,29 @@ using pii = pair<int, int>;
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
-vi A;
-int N, L, K;
-
-// mid以上の大きさに分けたとき，それは要件を満たしているか（K個以上か）
-bool is_ok(int mid) {
-    int cnt = 0;
-    int pre = 0;
-    rep(i, A.size()) {
-        if (A[i] - pre >= mid and L - A[i] >= mid) {
-            cnt++;
-            pre = A[i];
-        }
-    }
-    return cnt >= K;
-}
-
 int main()
 {
-
-    cin >> N >> L >> K;
-    A.resize(N);
+    ll N, M, P;
+    cin >> N >> M >> P;
+    vll A(N), B(M);
     rep(i, N) cin >> A[i];
-
-    int ok = -1;
-    int ng = 1000000001;
-
-    while (ng - ok > 1) {
-        int mid = (ng + ok) / 2;
-        if (is_ok(mid)) ok = mid;
-        else ng = mid;
+    rep(i, M) cin >> B[i];
+    sort(all(B));
+    vll B_cum(M+1);
+    rep(i, M) {
+        B_cum[i+1] = B_cum[i] + B[i];
     }
 
-    cout << ok << endl;
+    ll sum = 0;
+    rep(i, N) {
+        int bd = lower_bound(all(B), P - A[i]) - B.begin();
+        sum += ll(bd)*A[i];
+        sum += B_cum[bd];
+        sum += ll(P) * (M-bd);
+    }
+
+    cout << sum << endl;
+
 
     return 0;
 }

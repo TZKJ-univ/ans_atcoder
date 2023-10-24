@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 22.10.2023 20:34:19
+*    created: 23.10.2023 13:41:07
 **/
 
 #include <bits/stdc++.h>
@@ -30,39 +30,50 @@ using pii = pair<int, int>;
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
-vi A;
-int N, L, K;
+int H, W;
+vs c;
+int dx[] = {1, 0, -1, 0};
+int dy[] = {0, -1, 0, 1};
+vvi seen;
 
-// mid以上の大きさに分けたとき，それは要件を満たしているか（K個以上か）
-bool is_ok(int mid) {
-    int cnt = 0;
-    int pre = 0;
-    rep(i, A.size()) {
-        if (A[i] - pre >= mid and L - A[i] >= mid) {
-            cnt++;
-            pre = A[i];
+void dfs(int x, int y) {
+    rep(i, 4) {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+        if (nx < 0 or nx >= H or ny < 0 or ny >= W) continue;
+        if (c[nx][ny] == '#') continue;
+        if (seen[nx][ny]) continue;
+        if (c[nx][ny] == 'g') {
+            cout << "Yes" << endl;
+            exit(0);
         }
+        seen[nx][ny] = 1;
+        dfs(nx, ny);
     }
-    return cnt >= K;
 }
+
 
 int main()
 {
+    cin >> H >> W;
+    c.resize(H);
+    rep(i, H) cin >> c[i];
+    seen.resize(H, vi(W));
 
-    cin >> N >> L >> K;
-    A.resize(N);
-    rep(i, N) cin >> A[i];
-
-    int ok = -1;
-    int ng = 1000000001;
-
-    while (ng - ok > 1) {
-        int mid = (ng + ok) / 2;
-        if (is_ok(mid)) ok = mid;
-        else ng = mid;
+    int sh, sw, gh, gw;
+    rep(i, H) {
+        rep(j, W) {
+            if (c[i][j] == 's') {
+                sh = i; sw = j;
+            }
+            if (c[i][j] == 'g') {
+                gh = i; gw = j;
+            }
+        }
     }
+    dfs(sh, sw);
 
-    cout << ok << endl;
+    cout << "No" << endl;
 
     return 0;
 }

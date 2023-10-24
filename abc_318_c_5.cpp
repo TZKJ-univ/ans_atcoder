@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 22.10.2023 20:34:19
+*    created: 23.10.2023 14:26:48
 **/
 
 #include <bits/stdc++.h>
@@ -30,39 +30,26 @@ using pii = pair<int, int>;
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
-vi A;
-int N, L, K;
-
-// mid以上の大きさに分けたとき，それは要件を満たしているか（K個以上か）
-bool is_ok(int mid) {
-    int cnt = 0;
-    int pre = 0;
-    rep(i, A.size()) {
-        if (A[i] - pre >= mid and L - A[i] >= mid) {
-            cnt++;
-            pre = A[i];
-        }
-    }
-    return cnt >= K;
-}
-
 int main()
 {
+    ll N, D, P;
+    cin >> N >> D >> P;
+    vi F(N);
+    rep(i, N) cin >> F[i];
+    sort(rall(F));
+    F.resize(N + D - (N%D));
 
-    cin >> N >> L >> K;
-    A.resize(N);
-    rep(i, N) cin >> A[i];
-
-    int ok = -1;
-    int ng = 1000000001;
-
-    while (ng - ok > 1) {
-        int mid = (ng + ok) / 2;
-        if (is_ok(mid)) ok = mid;
-        else ng = mid;
+    ll mv = accumulate(all(F), 0ll);
+    ll pre = mv;
+    for (int i = 0; i < N; i+=D) {
+        ll subsum = 0;
+        for (int j = i; j < i+D; j++) {
+            subsum += F[j];
+        }
+        // cout << subsum << endl;
+        pre = mv - subsum + P;
+        chmin(mv, mv-subsum+P);
     }
-
-    cout << ok << endl;
-
+    cout << mv << endl;
     return 0;
 }
