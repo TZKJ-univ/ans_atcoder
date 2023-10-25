@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 14.10.2023 19:28:03
+*    created: 24.10.2023 20:05:16
 **/
 
 #include <bits/stdc++.h>
@@ -30,36 +30,51 @@ using pii = pair<int, int>;
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
-void dfs(vvi G, int v) {
-    seen[v] = 1;
-    for (auto& nv : G[v]) {
-        if (dist[nv] != -1) continue;
-        dist[nv] = dist[v] + 1;
-        dfs(G, nv);
-    }
-}
-
 int main()
 {
-    int N;
-    cin >> N;
-    vi A(N-1), B(N-1);
-    vvi G(N);
-    rep(i, N-1) {
-        cin >> A[i] >> B[i];
+    ll N, M;
+    cin >> N >> M;
+    vll A(M), B(M), X(M), Y(M);
+    rep(i, M) {
+        cin >> A[i] >> B[i] >> X[i] >> Y[i];
         A[i]--; B[i]--;
-        G[A[i]].push_back(B[i]);
-        G[B[i]].push_back(A[i]);
     }
 
-    vi dist(N, -1);
-    seen[0] = 1;
+    vector<vector<tuple<ll, ll, ll>>> G(N);
+    rep(i, M) {
+        G[A[i]].push_back({B[i], X[i], Y[i]});
+        G[B[i]].push_back({A[i], -X[i], -Y[i]});
+    }
 
-    
+    queue<ll> que;
+    vll seen(N);
 
-    dist[0] = 0;
-    dfs(G, 0);
-    cout << *max_element(all(dist)) + 1 << endl;
+    vector<pair<ll, ll>> ans(N);
+    que.push(0);
+
+    ans[0] = {0, 0};
+
+    while (!que.empty()) {
+        ll v = que.front();
+        que.pop();
+        seen[v] = 1;
+        ll vx = ans[v].first;
+        ll vy = ans[v].second;
+
+        for(auto& [nv, nvx, nvy] : G[v]) {
+            if (seen[nv]) continue;
+            ans[nv] = {vx + nvx, vy + nvy};
+            que.push(nv);
+        }
+    }
+
+    rep(i, N) {
+        if (seen[i]) {
+            cout << ans[i].first << ' ' << ans[i].second << endl;
+        } else {
+            cout << "undecidable" << endl;
+        }
+    }
 
     return 0;
 }

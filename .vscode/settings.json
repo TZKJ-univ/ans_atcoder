@@ -23,6 +23,7 @@
     "list": "cpp",
     "queue": "cpp",
     "numeric": "cpp",
-    "__tree": "cpp"
+    "__tree": "cpp",
+    "typeinfo": "cpp"
 }
 }
