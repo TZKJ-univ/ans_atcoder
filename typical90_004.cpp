@@ -1,6 +1,6 @@
 /**
   *  programmer:  Zama
-*    created: 14.10.2023 19:28:03
+*    created: 25.10.2023 15:40:46
 **/
 
 #include <bits/stdc++.h>
@@ -30,51 +30,42 @@ using pii = pair<int, int>;
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
-vi dist;
-
-void dfs(vvi& G, int v) {
-    for (auto& nv : G[v]) {
-        if (dist[nv] != -1) continue;
-        dist[nv] = dist[v] + 1;
-        dfs(G, nv);
-    }
-}
-vi dist2;
-void dfs2(vvi& G, int v) {
-    for (auto& nv : G[v]) {
-        if (dist2[nv] != -1) continue;
-        dist2[nv] = dist2[v] + 1;
-        dfs2(G, nv);
-    }
-}
 int main()
 {
-    int N;
-    cin >> N;
-    vi A(N-1), B(N-1);
-    vvi G(N);
-    rep(i, N-1) {
-        cin >> A[i] >> B[i];
-        A[i]--; B[i]--;
-        G[A[i]].push_back(B[i]);
-        G[B[i]].push_back(A[i]);
+    int H, W;
+    cin >> H >> W;
+    vvi A(H, vi(W));
+    rep(i, H) {
+        rep(j, W) {
+            cin >> A[i][j];
+        }
     }
 
-    dist.resize(N, -1);
-    dist2.resize(N, -1);
+    vvi ans(H, vi(W));
+    vi cum_h(H), cum_w(W);
+    rep(i, H) {
+        rep(j, W) {
+            cum_h[i] += A[i][j];
+        }
+    }
+    rep(j, W) {
+        rep(i, H) {
+            cum_w[j] += A[i][j];
+        }
+    }
 
-    dist[0] = 0;
-    dfs(G, 0);
+    rep(i, H) {
+        rep(j, W) {
+            ans[i][j] = cum_h[i] + cum_w[j] - A[i][j];
+        }
+    }
 
-    int u = max_element(all(dist)) - dist.begin();
-    dist2[u] = 0;
-    dfs2(G, u);
-    cout << *max_element(all(dist2)) + 1 << endl;
-
-    // cout << "=========\n";
-    // rep(i, N) cout << dist[i] << ' ';
-    // cout << endl;
-    // rep(i, N) cout << dist2[i] << ' ';
+    rep(i, H) {
+        rep (j, W) {
+            cout << ans[i][j] << ' ';
+        }
+        cout << endl;
+    }
 
     return 0;
 }
