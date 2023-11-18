@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "*.pde": "pde",
+        "vector": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "string": "cpp",
+        "string_view": "cpp"
+    }
+}
