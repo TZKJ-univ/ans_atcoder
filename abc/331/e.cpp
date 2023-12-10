@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 25.11.2023 20:53:13
+ * created: 05.12.2023 13:55:54
  **/
 
 #include <bits/stdc++.h>
@@ -45,18 +45,47 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 
 int main()
 {
-    int N, L;
-    cin >> N >> L;
-    vi A(N);
-    rep(i, N) cin >> A[i];
-
-    int cnt = 0;
-
-    rep(i, N) {
-        if (A[i] >= L) cnt++;
+    int N, M, L;
+    cin >> N >> M >> L;
+    vi a(N), b(M);
+    for (int i = 0; i < N; ++i) {
+        cin >> a[i];
+    }
+    for (int i = 0; i < M; ++i) {
+        cin >> b[i];
+    }
+    vector<int> c(L), d(L);
+    set<pair<int, int>> ng_set;
+    for (int i = 0; i < L; ++i) {
+        cin >> c[i] >> d[i];
+        c[i]--; d[i]--;
+        ng_set.insert({c[i], d[i]});
     }
 
-    print(cnt);
+    vi ord_b(M);
+    iota(all(ord_b), 0);
+    sort(all(ord_b), [&](int x, int y){return b[x] > b[y];});
+
+    // 合計金額とaのインデックスのペア
+    priority_queue<pair<int, int>> que;
+    vi cur(N);
+
+    rep(i, N) {
+        que.push({a[i]+b[ord_b[cur[i]]], i});
+    }
+    while (true) {
+        auto [cost, i] = que.top();
+        int j = cur[i];
+        que.pop();
+        if (ng_set.count({i, ord_b[j]}) == 0) {
+            cout << cost << endl;
+            break;
+        }
+        cur[i]++;
+        if (cur[i] != M) {
+            que.push({a[i]+b[ord_b[cur[i]]], i});
+        }
+    }
 
     return 0;
 }

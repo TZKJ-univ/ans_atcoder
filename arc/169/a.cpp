@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 25.11.2023 20:53:13
+ * created: 09.12.2023 20:57:15
  **/
 
 #include <bits/stdc++.h>
@@ -45,18 +45,64 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 
 int main()
 {
-    int N, L;
-    cin >> N >> L;
-    vi A(N);
+    ll N;
+    cin >> N;
+    vll A(N);
     rep(i, N) cin >> A[i];
+    vll P(N-1);
 
-    int cnt = 0;
-
-    rep(i, N) {
-        if (A[i] >= L) cnt++;
+    vvi G(250001);
+    rep(i, N-1) {
+        cin >> P[i];
+        P[i]--;
+        G[P[i]].pb(i+1);
     }
 
-    print(cnt);
+    // rep(i, 5) {
+    //     cout << i << ' ' <<endl;
+    //     print(G[i]);
+    // }
+
+    queue<ll> que;
+    que.push(0);
+
+    ll ans = 0;
+    vi dist(250001, -1);
+    dist[0] = 0;
+    vector<ll> mp(250001, 0LL);
+    vi flg(250001);
+    while (!(que.empty())) {
+        ll x = que.front();
+        que.pop();
+        for (auto nx : G[x]) {
+            dist[nx] = dist[x]+1;
+            que.push(nx);
+            mp[dist[nx]] += A[nx];
+            flg[dist[nx]] = 1;
+        }
+    }
+    // rep(i, 5) print(mp[i]);
+
+    for (int i = 250001; i > 0; --i) {
+        if (flg[i] == 0) continue;
+        else if (mp[i] == 0) continue;
+        else{
+            ans = mp[i];
+            break;
+        }
+    }
+
+    if (ans > 0) {
+        print('+');
+    } else if (ans < 0) {
+        print('-');
+    } else if (A[0] > 0){
+        print('+');
+    } else if (A[0] < 0){
+        print('-');
+    } else {
+        print('0');
+    }
 
     return 0;
 }

@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 25.11.2023 20:53:13
+ * created: 08.12.2023 12:25:04
  **/
 
 #include <bits/stdc++.h>
@@ -43,20 +43,22 @@ template <typename T, typename S> inline void print(const vector<pair<T, S>>& v)
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
+
 int main()
 {
-    int N, L;
-    cin >> N >> L;
-    vi A(N);
-    rep(i, N) cin >> A[i];
+    int H, W, rs, cs, rt, ct;
+    cin >> H >> W >> rs >> cs >> rt >> ct;
 
-    int cnt = 0;
+    vi dx{1, 0, -1, 0};
+    vi dy{0, 1, 0, -1};
 
-    rep(i, N) {
-        if (A[i] >= L) cnt++;
-    }
+    vs S(H);
+    rep(i, H) cin >> S[i];
 
-    print(cnt);
+    vvi rtt(H, vi(W, -1));
+    rtt[rs][cs] = 0;
+
+    queue
 
     return 0;
 }

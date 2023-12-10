@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 25.11.2023 20:53:13
+ * created: 05.12.2023 16:31:14
  **/
 
 #include <bits/stdc++.h>
@@ -43,20 +43,49 @@ template <typename T, typename S> inline void print(const vector<pair<T, S>>& v)
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
+using namespace std;
+
+using namespace std;
+
+vector<int> solution(vector<int> nums) {
+    // TODO: Implement me!
+
+    int nums_size = (int)nums.size();
+
+    vector<int> ans(nums_size);
+    for (int i = 0; i < nums_size; ++i) {
+        int cnt = 0;
+        int j = i;
+        while (true) {
+            // 左を探索
+            if (j - 1 < 0) break;
+            j--;
+            if (nums[j] < nums[i]) {
+                cnt++;
+            } else {
+                break;
+            }
+        }
+        j = i;
+        while (true) {
+            // 右を探索
+            if (j + 1 >= nums_size) break;
+            j++;
+            if (nums[j] < nums[i]) {
+                cnt++;
+            } else {
+                break;
+            }
+        }
+        ans[i] = cnt + 1;
+    }
+    return ans;
+}
 int main()
 {
-    int N, L;
-    cin >> N >> L;
-    vi A(N);
-    rep(i, N) cin >> A[i];
+    vi inp{3,4,1,6,2};
+    vi ans = solution(inp);
 
-    int cnt = 0;
-
-    rep(i, N) {
-        if (A[i] >= L) cnt++;
-    }
-
-    print(cnt);
-
+    print(ans);
     return 0;
 }

@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 25.11.2023 20:53:13
+ * created: 09.12.2023 17:41:55
  **/
 
 #include <bits/stdc++.h>
@@ -47,16 +47,20 @@ int main()
 {
     int N, L;
     cin >> N >> L;
-    vi A(N);
-    rep(i, N) cin >> A[i];
 
-    int cnt = 0;
+    vi dp(N+1);
+    dp[0] = 1;
 
-    rep(i, N) {
-        if (A[i] >= L) cnt++;
+    int mod = 1000000007;
+    rep(i, 1, N+1) {
+        dp[i] += dp[i-1];
+        dp[i] %= mod;
+
+        if (i < L) continue;
+        dp[i] += dp[i - L];
+        dp[i] %= mod;
     }
-
-    print(cnt);
+    print(dp[N]);
 
     return 0;
 }

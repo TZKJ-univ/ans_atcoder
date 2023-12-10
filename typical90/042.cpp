@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 25.11.2023 20:53:13
+ * created: 07.12.2023 20:35:27
  **/
 
 #include <bits/stdc++.h>
@@ -45,18 +45,25 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 
 int main()
 {
-    int N, L;
-    cin >> N >> L;
-    vi A(N);
-    rep(i, N) cin >> A[i];
+    int K;
+    cin >> K;
 
-    int cnt = 0;
+    int mod = 1000000007;
+    if (K % 9 == 0) {
+        vi dp(100001);
+        dp[0] = 1;
+        rep(i, 1, K+1) {
+            int Q = min(9, i);
+            rep(j, 1, Q+1) {
+                dp[i] += dp[i-j];
+                dp[i] %= mod;
+            }
+        }
 
-    rep(i, N) {
-        if (A[i] >= L) cnt++;
+        print(dp[K]);
+    } else {
+        print(0);
     }
-
-    print(cnt);
 
     return 0;
 }

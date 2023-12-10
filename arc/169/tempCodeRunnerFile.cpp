@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 25.11.2023 20:53:13
+ * created: 09.12.2023 20:57:15
  **/
 
 #include <bits/stdc++.h>
@@ -45,18 +45,56 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 
 int main()
 {
-    int N, L;
-    cin >> N >> L;
-    vi A(N);
+    ll N;
+    cin >> N;
+    vll A(N);
     rep(i, N) cin >> A[i];
+    vll P(N-1);
 
-    int cnt = 0;
-
-    rep(i, N) {
-        if (A[i] >= L) cnt++;
+    vvi G(250001);
+    rep(i, N-1) {
+        cin >> P[i];
+        P[i]--;
+        G[P[i]].pb(i+1);
     }
 
-    print(cnt);
+    // rep(i, 5) {
+    //     cout << i << ' ' <<endl;
+    //     print(G[i]);
+    // }
+
+    queue<int> que;
+    que.push(0);
+
+    ll ans = 0;
+    vi dist(250001, -1);
+    dist[0] = 0;
+    while (!(que.empty())) {
+        int x = que.front();
+        que.pop();
+        if (G[x].empty()) ans += dist[x] * A[x];
+        for (auto nx : G[x]) {
+            dist[nx] = dist[x]+1;
+            que.push(nx);
+        }
+    }
+    // rep(i, 5) print(dist[i]);
+    int mv = *max_element(all(dist));
+
+    // rep(i, 250001) {
+    //     if (dist[i] == mv) {
+    //         ans += A[i];
+    //         print(A[i]);
+    //     }
+    // }
+
+    if (ans > 0) {
+        print('+');
+    } else if (ans < 0) {
+        print('-');
+    } else {
+        print('0');
+    }
 
     return 0;
 }

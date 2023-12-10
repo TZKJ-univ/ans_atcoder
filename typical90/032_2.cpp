@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 25.11.2023 20:53:13
+ * created: 09.12.2023 13:52:46
  **/
 
 #include <bits/stdc++.h>
@@ -45,18 +45,45 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 
 int main()
 {
-    int N, L;
-    cin >> N >> L;
-    vi A(N);
-    rep(i, N) cin >> A[i];
+    int N;
+    cin >> N;
 
-    int cnt = 0;
+    vvi A(N, vi(N));
+    rep(i, N) rep(j, N) cin >> A[i][j];
 
-    rep(i, N) {
-        if (A[i] >= L) cnt++;
+    int M;
+    cin >> M;
+    set<pair<int, int>> bad;
+    rep(i, M) {
+        int x, y;
+        cin >> x >> y;
+        x--; y--;
+        bad.insert({x, y});
+        bad.insert({y, x});
     }
 
-    print(cnt);
+    vi ord(N);
+    iota(all(ord), 0);
+
+    int ans = 100000;
+    do {
+        int ok = 1;
+        rep(i, 1, N) {
+            if (bad.count({ord[i-1], ord[i]}) != 0) ok = 0;
+        }
+        if (ok == 0) continue;
+        int time = 0;
+        rep(i, N) {
+            time += A[ord[i]][i];
+        }
+        chmin(ans, time);
+    } while (next_permutation(all(ord)));
+
+    if (ans == 100000) {
+        print(-1);
+    } else {
+        print(ans);
+    }
 
     return 0;
 }

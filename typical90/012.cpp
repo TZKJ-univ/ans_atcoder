@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 25.11.2023 20:53:13
+ * created: 07.11.2023 21:21:50
  **/
 
 #include <bits/stdc++.h>
@@ -45,18 +45,41 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 
 int main()
 {
-    int N, L;
-    cin >> N >> L;
-    vi A(N);
-    rep(i, N) cin >> A[i];
-
-    int cnt = 0;
-
-    rep(i, N) {
-        if (A[i] >= L) cnt++;
+    int H, W, Q;
+    cin >> H >> W >> Q;
+    int q;
+    dsu d(H * W);
+    vvi painted(H, vi(W, 0));
+    vs ans;
+    rep(i, Q) {
+        cin >> q;
+        if (q == 1) {
+            int px, py;
+            cin >> px >> py;
+            px--; py--;
+            int dx[] = {1, 0, -1, 0};
+            int dy[] = {0, 1, 0, -1};
+            painted[px][py] = 1;
+            rep(i, 4) {
+                int sx = px + dx[i];
+                int sy = py + dy[i];
+                if (sx < 0 or sx >= H or sy < 0 or sy >= W) continue;
+                if (!painted[sx][sy]) continue;
+                d.merge(px*W+py, sx*W+sy);
+            }
+        } else if (q == 2) {
+            int px, py, sx, sy;
+            cin >> px >> py >> sx >> sy;
+            px--; py--; sx--; sy--;
+            if (!painted[px][py] or !painted[sx][sy]) ans.pb("No");
+            else {
+                if (d.same(px*W+py, sx*W+sy)) ans.pb("Yes");
+                else ans.pb("No");
+            }
+        }
     }
 
-    print(cnt);
+    print(ans, "\n");
 
     return 0;
 }

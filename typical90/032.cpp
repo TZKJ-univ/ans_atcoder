@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 25.11.2023 20:53:13
+ * created: 02.12.2023 01:40:18
  **/
 
 #include <bits/stdc++.h>
@@ -45,18 +45,59 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 
 int main()
 {
-    int N, L;
-    cin >> N >> L;
-    vi A(N);
-    rep(i, N) cin >> A[i];
+    int N;
+    cin >> N;
 
-    int cnt = 0;
-
+    vvi A(N, vi(N));
     rep(i, N) {
-        if (A[i] >= L) cnt++;
+        rep(j, N) {
+            cin >> A[i][j];
+        }
     }
 
-    print(cnt);
+    int M;
+    cin >> M;
+    vi X(M), Y(M);
+
+    vvi G(N);
+    rep(i, M) {
+        cin >> X[i] >> Y[i];
+        X[i]--; Y[i]--;
+        G[X[i]].pb(Y[i]);
+        G[Y[i]].pb(X[i]);
+    }
+
+    vi row(N);
+    iota(all(row), 0);
+
+    int ans;
+    int isfind = 0;
+    do {
+        int f = 1;
+        rep(i, N-1) {
+            if (find(all(G[row[i]]), row[i+1]) != G[row[i]].end()) f = 0;
+        }
+        if (f == 0) continue;
+
+        int time = 0;
+        rep(i, N) {
+            time += A[row[i]][i];
+        }
+        if (isfind == 0) {
+            ans = time;
+        } else {
+            chmin(ans, time);
+        }
+        isfind = 1;
+
+    } while (next_permutation(all(row)));
+
+    if (isfind) {
+        print(ans);
+    } else {
+        print(-1);
+    }
+
 
     return 0;
 }

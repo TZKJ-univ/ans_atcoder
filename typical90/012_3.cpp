@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 25.11.2023 20:53:13
+ * created: 22.11.2023 20:24:58
  **/
 
 #include <bits/stdc++.h>
@@ -45,18 +45,50 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 
 int main()
 {
-    int N, L;
-    cin >> N >> L;
-    vi A(N);
-    rep(i, N) cin >> A[i];
+    int H, W, Q;
+    cin >> H >> W >> Q;
 
-    int cnt = 0;
+    vi dr{1, 0, -1, 0};
+    vi dc{0, 1, 0, -1};
 
-    rep(i, N) {
-        if (A[i] >= L) cnt++;
+    vi flg(H*W);
+
+    dsu d(H*W);
+
+    vs ans;
+    rep(i, Q) {
+        int q;
+        cin >> q;
+        if (q == 1) {
+            int r, c;
+            cin >> r >> c;
+            r--; c--;
+            flg[W*r+c] = 1;
+            rep(j, 4) {
+                int nr = r+dr[j];
+                int nc = c+dc[j];
+                if (nr < 0 or nr >= H or nc < 0 or nc >= W) continue;
+                if (flg[nr*W+nc] == 0) continue;
+
+                d.merge(nr*W+nc, r*W+c);
+            }
+        } else {
+            int r1, c1, r2, c2;
+            cin >> r1 >> c1 >> r2 >> c2;
+            r1--; c1--; r2--; c2--;
+            if (flg[r1*W+c1] and flg[r2*W+c2]) {
+                if (d.same(r1*W+c1, r2*W+c2)) {
+                    ans.pb("Yes");
+                } else {
+                    ans.pb("No");
+                }
+            } else {
+                ans.pb("No");
+            }
+        }
     }
 
-    print(cnt);
+    print(ans, "\n");
 
     return 0;
 }
