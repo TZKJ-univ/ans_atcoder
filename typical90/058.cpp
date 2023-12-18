@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 17.12.2023 23:57:21
+ * created: 10.12.2023 17:11:37
  **/
 
 #include <bits/stdc++.h>
@@ -50,48 +50,51 @@ template <typename T, typename S> inline void print(const vector<pair<T, S>>& v)
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
-ll ps(ll x) {
-    int d_sum = 0;
-    int tmp_x = x;
-    while (tmp_x > 0) {
-        d_sum += tmp_x % 10;
-        tmp_x /= 10;
+void button(ll& N) {
+    ll sum = 0;
+    ll n = N;
+    while (n != 0) {
+        sum += n % 10;
+        n /= 10;
     }
-    return (x + d_sum) % 100000;
+    N += sum;
 }
 
 int main()
 {
-    int N;
-    ll K;
+    ll N, K;
     cin >> N >> K;
 
-    map<ll, ll> mp;
-    ll cnt = 0;
-    ll x = N;
-    int f = 0;
-    while (cnt < K) {
-        if (mp[x] != 0) {
-            f = 1;
-            break;
-        }
-        mp[x] = cnt;
-        x = ps(x);
-        cnt++;
+    ll mod = 100000;
+    vi tm(mod, -1);
+
+    ll i = 0;
+    ll n = N;
+    while (1) {
+        n %= mod;
+        // debug(n);
+        if (tm[n] != -1) break;
+        tm[n] = i;
+        button(n);
+        ++i;
     }
 
-    debug(f);
-    if (f == 0) {
-        print(x);
-    } else {
-        ll a = mp[x];
-        ll b = cnt - a;
-        // debug(a, b,((K - a) % b) + a);
-        rep(i, ((K - a) % b) + a) {
-            N = ps(N);
-        }
-        print(N);
+    ll a = tm[n];
+
+    ll c = i - a;
+
+    if (K > a) {
+        K = (K - a) % c + a;
     }
+
+    rep(j, K) {
+        button(N);
+        N %= mod;
+    }
+
+    print(N);
+
+
 
     return 0;
 }

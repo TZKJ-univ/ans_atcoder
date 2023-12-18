@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 17.12.2023 23:57:21
+ * created: 16.12.2023 18:51:17
  **/
 
 #include <bits/stdc++.h>
@@ -50,48 +50,22 @@ template <typename T, typename S> inline void print(const vector<pair<T, S>>& v)
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
-ll ps(ll x) {
-    int d_sum = 0;
-    int tmp_x = x;
-    while (tmp_x > 0) {
-        d_sum += tmp_x % 10;
-        tmp_x /= 10;
-    }
-    return (x + d_sum) % 100000;
-}
-
 int main()
 {
-    int N;
-    ll K;
+    int N, K;
     cin >> N >> K;
-
-    map<ll, ll> mp;
-    ll cnt = 0;
-    ll x = N;
-    int f = 0;
-    while (cnt < K) {
-        if (mp[x] != 0) {
-            f = 1;
-            break;
-        }
-        mp[x] = cnt;
-        x = ps(x);
-        cnt++;
+    vi A(N), B(N);
+    priority_queue<int> q;
+    rep(i, N) {
+        cin >> A[i] >> B[i];
+        q.push(A[i]-B[i]);
+        q.push(B[i]);
     }
-
-    debug(f);
-    if (f == 0) {
-        print(x);
-    } else {
-        ll a = mp[x];
-        ll b = cnt - a;
-        // debug(a, b,((K - a) % b) + a);
-        rep(i, ((K - a) % b) + a) {
-            N = ps(N);
-        }
-        print(N);
+    ll ans = 0LL;
+    rep(i, K) {
+        ans += q.top();
+        q.pop();
     }
-
+    print(ans);
     return 0;
 }

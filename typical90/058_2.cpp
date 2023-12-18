@@ -80,13 +80,11 @@ int main()
         cnt++;
     }
 
-    debug(f);
     if (f == 0) {
         print(x);
     } else {
         ll a = mp[x];
         ll b = cnt - a;
-        // debug(a, b,((K - a) % b) + a);
         rep(i, ((K - a) % b) + a) {
             N = ps(N);
         }

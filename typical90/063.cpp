@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 17.12.2023 23:57:21
+ * created: 10.12.2023 18:33:17
  **/
 
 #include <bits/stdc++.h>
@@ -50,48 +50,48 @@ template <typename T, typename S> inline void print(const vector<pair<T, S>>& v)
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
-ll ps(ll x) {
-    int d_sum = 0;
-    int tmp_x = x;
-    while (tmp_x > 0) {
-        d_sum += tmp_x % 10;
-        tmp_x /= 10;
-    }
-    return (x + d_sum) % 100000;
-}
-
 int main()
 {
-    int N;
-    ll K;
-    cin >> N >> K;
+    int H, W;
+    cin >> H >> W;
+    vvi P(H, vi(W));
 
-    map<ll, ll> mp;
-    ll cnt = 0;
-    ll x = N;
-    int f = 0;
-    while (cnt < K) {
-        if (mp[x] != 0) {
-            f = 1;
-            break;
+    rep(i, H) {
+        rep(j, W) {
+            cin >> P[i][j];
         }
-        mp[x] = cnt;
-        x = ps(x);
-        cnt++;
     }
 
-    debug(f);
-    if (f == 0) {
-        print(x);
-    } else {
-        ll a = mp[x];
-        ll b = cnt - a;
-        // debug(a, b,((K - a) % b) + a);
-        rep(i, ((K - a) % b) + a) {
-            N = ps(N);
+    int ans = 0;
+    for (int bit = 1; bit < (1<<H); ++bit) {
+        map<int, int> mp;
+        rep(i, W) {
+            int obj = -1;
+            int is_ok = 1;
+            rep(j, H) {
+                if ((1 << j) & bit) {
+                    if (obj == -1) {
+                        obj = P[j][i];
+                    } else {
+                        if (obj != P[j][i]) is_ok = 0;
+                    }
+                }
+            }
+            if (is_ok) mp[obj]++;
         }
-        print(N);
+        int mx = -1;
+        for (auto itr = mp.begin(); itr != mp.end(); ++itr) {
+            chmax(mx, itr->second);
+        }
+        int cnt_H = 0;
+        rep(i, H) {
+            if ((1 << i) & bit) cnt_H++;
+        }
+        chmax(ans, mx*cnt_H);
     }
+
+    print(ans);
 
     return 0;
+
 }

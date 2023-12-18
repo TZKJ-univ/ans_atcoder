@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 17.12.2023 23:57:21
+ * created: 14.12.2023 19:01:09
  **/
 
 #include <bits/stdc++.h>
@@ -50,47 +50,44 @@ template <typename T, typename S> inline void print(const vector<pair<T, S>>& v)
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
-ll ps(ll x) {
-    int d_sum = 0;
-    int tmp_x = x;
-    while (tmp_x > 0) {
-        d_sum += tmp_x % 10;
-        tmp_x /= 10;
-    }
-    return (x + d_sum) % 100000;
-}
-
 int main()
 {
-    int N;
-    ll K;
-    cin >> N >> K;
-
-    map<ll, ll> mp;
-    ll cnt = 0;
-    ll x = N;
-    int f = 0;
-    while (cnt < K) {
-        if (mp[x] != 0) {
-            f = 1;
-            break;
-        }
-        mp[x] = cnt;
-        x = ps(x);
-        cnt++;
+    int N, Q;
+    cin >> N >> Q;
+    vll A(N);
+    rep(i, N) cin >> A[i];
+    vll L(Q), R(Q), V(Q);
+    rep(i, Q) {
+        cin >> L[i] >> R[i] >> V[i];
+        L[i]--; R[i]--;
     }
 
-    debug(f);
-    if (f == 0) {
-        print(x);
-    } else {
-        ll a = mp[x];
-        ll b = cnt - a;
-        // debug(a, b,((K - a) % b) + a);
-        rep(i, ((K - a) % b) + a) {
-            N = ps(N);
+    vll B(N-1);
+    rep(i, N-1) {
+        B[i] = A[i+1] - A[i];
+    }
+    ll inc = 0LL;
+
+    rep(i, N-1) {
+        inc += abs(B[i]);
+    }
+
+    rep(i, Q) {
+        ll mae;
+        if (L[i] > 0 and R[i] < N-1) {
+            mae = (ll)abs(B[L[i]-1]) + abs(B[R[i]]);
+        } else if (L[i] > 0 and R[i] == N-1) {
+            mae = (ll)abs(B[L[i]-1]);
+        } else if (L[i] == 0 and R[i] < N-1) {
+            mae = (ll)abs(B[R[i]]);
+        } else {
+            mae = 0LL;
         }
-        print(N);
+        if (L[i] > 0) B[L[i]-1] += V[i];
+        if (R[i] < N-1) B[R[i]] -= V[i];
+        ll ato = abs(B[L[i]-1]) + abs(B[R[i]]);
+        inc += ato - mae;
+        print(inc);
     }
 
     return 0;

@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 17.12.2023 23:57:21
+ * created: 14.12.2023 18:41:06
  **/
 
 #include <bits/stdc++.h>
@@ -50,47 +50,25 @@ template <typename T, typename S> inline void print(const vector<pair<T, S>>& v)
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
-ll ps(ll x) {
-    int d_sum = 0;
-    int tmp_x = x;
-    while (tmp_x > 0) {
-        d_sum += tmp_x % 10;
-        tmp_x /= 10;
-    }
-    return (x + d_sum) % 100000;
-}
-
 int main()
 {
-    int N;
-    ll K;
-    cin >> N >> K;
+    int K;
+    cin >> K;
+    int mod = 1000000007;
+    vi dp(100001); // dp[i]: 桁の総数がiの数の総和
+    dp[0] = 1;
 
-    map<ll, ll> mp;
-    ll cnt = 0;
-    ll x = N;
-    int f = 0;
-    while (cnt < K) {
-        if (mp[x] != 0) {
-            f = 1;
-            break;
+    if (K % 9 == 0) {
+        rep(i, 1, K+1) {
+            int x = min(i, 9);
+            rep(j, 1, x+1) {
+                dp[i] += dp[i - j];
+                dp[i] %= mod;
+            }
         }
-        mp[x] = cnt;
-        x = ps(x);
-        cnt++;
-    }
-
-    debug(f);
-    if (f == 0) {
-        print(x);
+        print(dp[K]);
     } else {
-        ll a = mp[x];
-        ll b = cnt - a;
-        // debug(a, b,((K - a) % b) + a);
-        rep(i, ((K - a) % b) + a) {
-            N = ps(N);
-        }
-        print(N);
+        print(0);
     }
 
     return 0;

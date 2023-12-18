@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 17.12.2023 23:57:21
+ * created: 13.12.2023 14:37:15
  **/
 
 #include <bits/stdc++.h>
@@ -50,48 +50,44 @@ template <typename T, typename S> inline void print(const vector<pair<T, S>>& v)
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
-ll ps(ll x) {
-    int d_sum = 0;
-    int tmp_x = x;
-    while (tmp_x > 0) {
-        d_sum += tmp_x % 10;
-        tmp_x /= 10;
-    }
-    return (x + d_sum) % 100000;
-}
-
 int main()
 {
-    int N;
-    ll K;
+    int N, K;
     cin >> N >> K;
 
-    map<ll, ll> mp;
-    ll cnt = 0;
-    ll x = N;
-    int f = 0;
-    while (cnt < K) {
-        if (mp[x] != 0) {
-            f = 1;
-            break;
+    vi a(N);
+    rep(i, N) cin >> a[i];
+
+    int right = 0;
+    map<int, int> mp;
+    int cnt = 0;
+    int ans = 0;
+    rep(left, N) {
+        while (right < N) {
+            if (mp[a[right]] == 0 and cnt == K) break;
+            if (mp[a[right]] == 0) {
+                cnt++;
+            }
+            mp[a[right]]++;
+            right++;
         }
-        mp[x] = cnt;
-        x = ps(x);
-        cnt++;
+
+        // debug(mp, left, right);
+
+        chmax(ans, right - left);
+
+        // if (right == left) {
+        //     right++;
+        // }
+
+        if (mp[a[left]] == 1) {
+            cnt--;
+        }
+
+        mp[a[left]]--;
     }
 
-    debug(f);
-    if (f == 0) {
-        print(x);
-    } else {
-        ll a = mp[x];
-        ll b = cnt - a;
-        // debug(a, b,((K - a) % b) + a);
-        rep(i, ((K - a) % b) + a) {
-            N = ps(N);
-        }
-        print(N);
-    }
+    print(ans);
 
     return 0;
 }
