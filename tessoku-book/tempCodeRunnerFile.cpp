@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 23.12.2023 15:50:51
+ * created: 14.12.2023 16:09:12
  **/
 
 #include <bits/stdc++.h>
@@ -52,51 +52,32 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 
 int main()
 {
-    int N, Q;
-    cin >> N >> Q;
+    int N, K;
+    cin >> N >> K;
     vll A(N);
+
     rep(i, N) cin >> A[i];
 
-    vll L(Q), R(Q), V(Q);
+    int right = 0;
+    vll num(N);
+    rep(left, N) {
+        if (left != 0) {
+            num[left] = num[left-1]-1;
+        }
+        while (A[right]-A[left] <= K and right < N) {
 
-    rep(i, Q) {
-        cin >> L[i] >> R[i] >> V[i];
-        L[i]--;
-        R[i]--;
+            if (right != left){
+                num[left]++;
+            }
+            right++;
+        }
+        // debug(left, right, num[left]);
     }
 
-    vi dif(N-1);
-    ll inc;
-    rep(i, N-1) {
-        inc += (ll)abs(A[i+1]-A[i]);
-    }
-    rep(i, Q) {
-        ll mae = 0, ato = 0;
-        if (L[i] != 0) {
-            mae += abs(dif[L[i]-1]);
-        }
-        if (R[i] != N-1) {
-            mae += abs(dif[R[i]]);
-        }
+    ll ans = 0LL;
+    rep(i, N) ans += num[i];
 
-        if (L[i] != 0) {
-            dif[L[i]-1] += V[i];
-        }
-        if (R[i] != N-1) {
-            dif[R[i]] -= V[i];
-        }
-
-        if (L[i] != 0) {
-            ato += abs(dif[L[i]-1]);
-        }
-        if (R[i] != N-1) {
-            ato += abs(dif[R[i]]);
-        }
-        inc += ato - mae;
-        print(inc);
-    }
-
-
+    print(ans);
 
     return 0;
 }

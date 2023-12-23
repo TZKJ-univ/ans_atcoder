@@ -1,13 +1,13 @@
 import os
 
 # Specified directory name
-dir_name = input("Enter the directory name: ")
+dir_name = "abc/" + input("Enter the directory name: ")
 
 # Create the directory
 os.makedirs(dir_name, exist_ok=True)
 
 # File names to create
-file_names = ["a.cpp", "b.cpp", "c.cpp", "d.cpp"]
+file_names = ["a.cpp", "b.cpp", "c.cpp", "d.cpp", "e.cpp"]
 
 # Creating each file in the specified directory
 for file_name in file_names:

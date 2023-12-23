@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 23.12.2023 15:50:51
+ * created: 15.12.2023 23:39:06
  **/
 
 #include <bits/stdc++.h>
@@ -52,51 +52,10 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 
 int main()
 {
-    int N, Q;
-    cin >> N >> Q;
-    vll A(N);
-    rep(i, N) cin >> A[i];
+    int A, B;
+    cin >> A >> B;
 
-    vll L(Q), R(Q), V(Q);
-
-    rep(i, Q) {
-        cin >> L[i] >> R[i] >> V[i];
-        L[i]--;
-        R[i]--;
-    }
-
-    vi dif(N-1);
-    ll inc;
-    rep(i, N-1) {
-        inc += (ll)abs(A[i+1]-A[i]);
-    }
-    rep(i, Q) {
-        ll mae = 0, ato = 0;
-        if (L[i] != 0) {
-            mae += abs(dif[L[i]-1]);
-        }
-        if (R[i] != N-1) {
-            mae += abs(dif[R[i]]);
-        }
-
-        if (L[i] != 0) {
-            dif[L[i]-1] += V[i];
-        }
-        if (R[i] != N-1) {
-            dif[R[i]] -= V[i];
-        }
-
-        if (L[i] != 0) {
-            ato += abs(dif[L[i]-1]);
-        }
-        if (R[i] != N-1) {
-            ato += abs(dif[R[i]]);
-        }
-        inc += ato - mae;
-        print(inc);
-    }
-
-
+    YesNo(B - A == 1 and B != 4 and B != 7);
 
     return 0;
 }

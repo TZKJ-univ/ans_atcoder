@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 23.12.2023 15:50:51
+ * created: 16.12.2023 20:55:35
  **/
 
 #include <bits/stdc++.h>
@@ -52,51 +52,29 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 
 int main()
 {
-    int N, Q;
-    cin >> N >> Q;
-    vll A(N);
-    rep(i, N) cin >> A[i];
+    ll N;
+    cin >> N;
 
-    vll L(Q), R(Q), V(Q);
-
-    rep(i, Q) {
-        cin >> L[i] >> R[i] >> V[i];
-        L[i]--;
-        R[i]--;
+    vll n;
+    ll x = 1LL;
+    rep(i, 13) {
+        n.pb(x);
+        x *= 10;
+        x++;
+    }
+    // debug(n);
+    set<ll> st;
+    rep(i, 13) {
+        rep(j, i, 13) {
+            rep(k, j, 13) {
+                st.insert(n[i]+n[j]+n[k]);
+            }
+        }
     }
 
-    vi dif(N-1);
-    ll inc;
-    rep(i, N-1) {
-        inc += (ll)abs(A[i+1]-A[i]);
-    }
-    rep(i, Q) {
-        ll mae = 0, ato = 0;
-        if (L[i] != 0) {
-            mae += abs(dif[L[i]-1]);
-        }
-        if (R[i] != N-1) {
-            mae += abs(dif[R[i]]);
-        }
-
-        if (L[i] != 0) {
-            dif[L[i]-1] += V[i];
-        }
-        if (R[i] != N-1) {
-            dif[R[i]] -= V[i];
-        }
-
-        if (L[i] != 0) {
-            ato += abs(dif[L[i]-1]);
-        }
-        if (R[i] != N-1) {
-            ato += abs(dif[R[i]]);
-        }
-        inc += ato - mae;
-        print(inc);
-    }
-
-
+    vll vec{st.begin(), st.end()};
+    // debug(vec);
+    print(vec[N-1]);
 
     return 0;
 }

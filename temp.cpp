@@ -1,11 +1,18 @@
 /**
  * author: Zama
- * created: 05.12.2023 16:31:14
+ * created: 20.12.2023 22:12:56
  **/
 
 #include <bits/stdc++.h>
 
 using namespace std;
+
+#ifdef LOCAL
+#  include <debug_print.hpp>
+#  define debug(...) debug_print::multi_print(#__VA_ARGS__, __VA_ARGS__)
+#else
+#  define debug(...) (static_cast<void>(0))
+#endif
 
 #if __has_include(<atcoder/all>)
 #include <atcoder/all>
@@ -43,49 +50,10 @@ template <typename T, typename S> inline void print(const vector<pair<T, S>>& v)
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
 
-using namespace std;
-
-using namespace std;
-
-vector<int> solution(vector<int> nums) {
-    // TODO: Implement me!
-
-    int nums_size = (int)nums.size();
-
-    vector<int> ans(nums_size);
-    for (int i = 0; i < nums_size; ++i) {
-        int cnt = 0;
-        int j = i;
-        while (true) {
-            // 左を探索
-            if (j - 1 < 0) break;
-            j--;
-            if (nums[j] < nums[i]) {
-                cnt++;
-            } else {
-                break;
-            }
-        }
-        j = i;
-        while (true) {
-            // 右を探索
-            if (j + 1 >= nums_size) break;
-            j++;
-            if (nums[j] < nums[i]) {
-                cnt++;
-            } else {
-                break;
-            }
-        }
-        ans[i] = cnt + 1;
-    }
-    return ans;
-}
 int main()
 {
-    vi inp{3,4,1,6,2};
-    vi ans = solution(inp);
+    map<int, int> mp{{1,100}, {2, 30}, {4, 80}};
+    print(*max_element(all(mp)));
 
-    print(ans);
     return 0;
 }

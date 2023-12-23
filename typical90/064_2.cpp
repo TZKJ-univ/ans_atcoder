@@ -65,34 +65,35 @@ int main()
         R[i]--;
     }
 
-    vi dif(N-1);
-    ll inc;
+    vll dif(N-1);
+    ll inc = 0;
     rep(i, N-1) {
+        dif[i] = A[i+1]-A[i];
         inc += (ll)abs(A[i+1]-A[i]);
     }
     rep(i, Q) {
         ll mae = 0, ato = 0;
         if (L[i] != 0) {
-            mae += abs(dif[L[i]-1]);
+            mae += (ll)abs(dif[L[i]-1]);
         }
         if (R[i] != N-1) {
-            mae += abs(dif[R[i]]);
+            mae += (ll)abs(dif[R[i]]);
         }
 
         if (L[i] != 0) {
-            dif[L[i]-1] += V[i];
+            dif[L[i]-1] = dif[L[i]-1] + V[i];
         }
         if (R[i] != N-1) {
-            dif[R[i]] -= V[i];
+            dif[R[i]] = dif[R[i]] - V[i];
         }
 
         if (L[i] != 0) {
-            ato += abs(dif[L[i]-1]);
+            ato += (ll)abs(dif[L[i]-1]);
         }
         if (R[i] != N-1) {
-            ato += abs(dif[R[i]]);
+            ato += (ll)abs(dif[R[i]]);
         }
-        inc += ato - mae;
+        inc += (ll)(ato - mae);
         print(inc);
     }
 

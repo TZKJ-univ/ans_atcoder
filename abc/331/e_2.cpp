@@ -1,6 +1,6 @@
 /**
  * author: Zama
- * created: 23.12.2023 15:50:51
+ * created: 12.12.2023 19:25:49
  **/
 
 #include <bits/stdc++.h>
@@ -52,51 +52,48 @@ template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; }
 
 int main()
 {
-    int N, Q;
-    cin >> N >> Q;
-    vll A(N);
-    rep(i, N) cin >> A[i];
-
-    vll L(Q), R(Q), V(Q);
-
-    rep(i, Q) {
-        cin >> L[i] >> R[i] >> V[i];
-        L[i]--;
-        R[i]--;
+    int N, M, L;
+    cin >> N >> M >> L;
+    vi a(N), b(M);
+    rep(i, N) cin >> a[i];
+    rep(i, M) cin >> b[i];
+    set<pair<int, int>> bad;
+    rep(i, L) {
+        int c, d;
+        cin >> c >> d;
+        bad.insert({c-1, d-1});
     }
 
-    vi dif(N-1);
-    ll inc;
-    rep(i, N-1) {
-        inc += (ll)abs(A[i+1]-A[i]);
-    }
-    rep(i, Q) {
-        ll mae = 0, ato = 0;
-        if (L[i] != 0) {
-            mae += abs(dif[L[i]-1]);
-        }
-        if (R[i] != N-1) {
-            mae += abs(dif[R[i]]);
-        }
+    // {合計金額, aのインデックス}
+    priority_queue<pair<int, int>> que;
+    vi cur(N);
+    vi b_sort_idx(M);
+    iota(all(b_sort_idx), 0);
+    sort(all(b_sort_idx), [&](int x, int y){ return b[x] > b[y]; });
+    // debug(b_sort_idx);
 
-        if (L[i] != 0) {
-            dif[L[i]-1] += V[i];
-        }
-        if (R[i] != N-1) {
-            dif[R[i]] -= V[i];
-        }
 
-        if (L[i] != 0) {
-            ato += abs(dif[L[i]-1]);
-        }
-        if (R[i] != N-1) {
-            ato += abs(dif[R[i]]);
-        }
-        inc += ato - mae;
-        print(inc);
+    rep(i, N) {
+        que.push({a[i]+b[b_sort_idx[0]], i});
     }
 
+    int ans = 0;
+    // debug(bad);
+    // debug(que);
+    while (1) {
+        int ch = que.top().first;
+        int idx = que.top().second;
+        que.pop();
+        if (bad.count({idx, b_sort_idx[cur[idx]]}) != 0) {
+            cur[idx]++;
+            que.push({a[idx]+b[b_sort_idx[cur[idx]]], idx});
+        } else {
+            ans = ch;
+            break;
+        }
+    }
 
+    print(ans);
 
     return 0;
 }
