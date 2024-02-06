@@ -15,4 +15,5 @@ B=[]
 for i in range(N):
     A.append(int(input()))
     B=divisor_list_s(A[i])
+
     
