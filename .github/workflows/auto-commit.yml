@@ -25,4 +25,4 @@ jobs:
           echo -e ${{ env.CURRENT_DATETIME }} >> commit_log.txt
           git add commit_log.txt
           git commit -m "[add] 自動コミット:${{ env.CURRENT_DATETIME }}"
-          git push origin main  
+          git push origin main
