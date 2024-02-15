@@ -18,5 +18,5 @@ while R-L>1:
         R=m
     else:
         L=m
-
+#a
 print(R)
