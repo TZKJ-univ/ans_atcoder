@@ -14,7 +14,7 @@ for i in range(N):
     #print(L[i],R[i])
     zenzituhi[L[i]]+=1
     zenzituhi[R[i]]-=1
-    
+
 sankasya[0]=zenzituhi[0]
 for i in range(1,D):
     sankasya[i]=sankasya[i-1]+zenzituhi[i]
