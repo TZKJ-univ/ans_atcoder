@@ -1,24 +1,24 @@
-import matplotlib.pyplot as plt
+import numpy as np
 
-def calculate_external_exposure(space_dose_rate, outdoor_hours_per_day, days_per_year):
-    return space_dose_rate * outdoor_hours_per_day * days_per_year * 1e-6
+N,M=map(int,input().split())
+A=np.zeros((N+1,M+1))
+for i in range(1,N+1):
+    a=list(map(int,input().split()))
+    A[i]=np.array([0]+a)
 
-space_dose_rates = range(1, 101)  # 0.1 μSv/h から 100 μSv/h まで
-external_exposures = [calculate_external_exposure(rate, 10, 365) for rate in space_dose_rates]
+X=int(input())
+R=[0]
+S=[0]
+for i in range(X):
+    r,s=map(int,input().split())
+    R.append(r)
+    S.append(s)
+genzaiti=1
+# print(A)
+ans=0
+for i in range(1,X+1):
+    ans+=abs(A[R[i]][S[i]]-A[R[i]][genzaiti])
+    genzaiti=S[i]
+    
 
-plt.plot(space_dose_rates, external_exposures)
-plt.xlabel('Space Dose Rate (μSv/h)')
-plt.ylabel('External Exposure (Sv)')
-plt.title('External Exposure over 1 Year (0.1 - 100 μSv/h)')
-plt.grid(True)
-plt.show()
-
-space_dose_rates = range(100, 10001)  # 100 μSv/h から 10,000 μSv/h まで
-external_exposures = [calculate_external_exposure(rate, 10, 10) for rate in space_dose_rates]
-
-plt.plot(space_dose_rates, external_exposures)
-plt.xlabel('Space Dose Rate (μSv/h)')
-plt.ylabel('External Exposure (Sv)')
-plt.title('External Exposure over 10 Days (100 - 10,000 μSv/h)')
-plt.grid(True)
-plt.show()
+print(int(ans))
