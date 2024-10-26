@@ -18,7 +18,6 @@ ans = (M * (M + 1)) // 2
 # print(ans)
 
 for i in range(N):
-    if 
     
 
 ans -= len(HW)
